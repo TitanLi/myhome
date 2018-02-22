@@ -1,0 +1,63 @@
+.container .clock{
+  margin:20px;
+}
+.show-time{
+  position:absolute;
+}
+.container .clock span {
+  display: block;
+  width: 6px;
+  height: 20px;
+  background: #000;
+  position: relative;
+  -webkit-transition:.3s;   /* 改變數字的時候有淡入淡出的效果 */
+  transition:.3s;
+  box-shadow:-1px 1px 5px rgba(0,0,0,.6);   /* 讓液晶數字有陰影，有浮起來的效果 */
+}
+.container .clock span.s1,.clock span.s4,.clock span.s7 {     /* 水平的黑色條 */
+  width: 20px;
+  height: 6px;
+}
+.container .clock span::before, .clock span::after {    /* 偽元素的基本樣式 */
+  content:'';
+  position: absolute;
+  border: 3px solid rgba(0, 0, 0, 0);
+  width:0;
+  height:0;
+}
+
+.container .clock span.s1 {   /* 水平黑色條 */
+}
+.container .clock span.s2,.clock span.s5 {   /* 垂直黑色條 */
+  margin-top:1px;
+  margin-left:-7px;
+}
+.container .clock span.s3,.clock span.s6 {   /* 垂直黑色條 */
+  margin-top:-20px;
+  margin-left:21px;
+}
+.container .clock span.s4,.clock span.s7  {   /* 水平黑色條 */
+  margin-top:1px;
+}
+
+/* 左方三角 */
+.container .clock span.s1::before, .clock span.s4::before, .clock span.s7::before {
+  top:0px;
+  left: -6px;
+  border-right-color:#000;
+}
+/* 右方三角 */
+.container .clock span.s1::after, .clock span.s4::after, .clock span.s7::after {
+  right: -6px;
+  border-left-color:#000;
+}
+/* 上方三角 */
+.container .clock span.s2::before, .clock span.s3::before, .clock span.s5::before, .clock span.s6::before {
+  top: -6px;
+  border-bottom-color: #000;
+}
+/* 下方三角 */
+.container .clock span.s2::after, .clock span.s3::after, .clock span.s5::after, .clock span.s6::after {
+  bottom: -6px;
+  border-top-color: #000;
+}

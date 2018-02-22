@@ -1,0 +1,15 @@
+body, html{
+    background-size: 100% 100%;
+    position: relative;
+}
+
+.title{
+  text-align:center;
+  line-height:160px;
+  color: #eff40c;
+}
+
+.day{
+  text-align:center;
+  color: #e4e20a;
+}
