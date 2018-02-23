@@ -4,7 +4,6 @@ const serve = require('koa-static');
 const logger = require('koa-logger');
 const bodyparser = require('koa-bodyparser');
 const session = require('koa-session');
-const TTSClient = require('itri-tts');
 const render = require('./lib/render');
 
 const app = new koa();
@@ -34,18 +33,6 @@ app.use(bodyparser());
 app.use(router.routes());
 app.context.render = render;
 
-const tts = new TTSClient("Lisheng0706", "Q3SeD");
-var options = {
-  TTStext: '您好，我是Angela',
-  TTSSpeaker: 'Bruce',  // Bruce, Theresa, Angela, default = Bruce
-  volume: 100,          // 0 ~ 100, default = 100
-  speed: 0,             // -10 ~ 10, default = 0
-  outType: 'wav',       // wav, flv
-  PitchLevel: 0,        // -10 ~ 10, default = 0
-  PitchSign: 0,         // 0, 1, 2, default = 0
-  PitchScale: 5         // 0 ~ 20, default = 5
-}
-
 router.get('/', async function (ctx, next) {
   ctx.body = await ctx.render('login');
 });
@@ -60,38 +47,8 @@ router.get('/home', async function (ctx, next) {
       date:Math.floor((new Date().getTime()-new Date("2015-10-07T06:00:00.000Z").getTime())/86400000)
     });
   }else if (ctx.session.views=="apple") {
-    options.TTStext = "我愛蔡宛儒";
-
-    //Create audio file .wav
-    await new Promise (function(resolve,reject){
-      tts.ConvertAdvancedText(options, function (err, result) {
-        if (err) throw err
-        if (result.resultString == "success"){
-          //Get convert ID
-          convertID = parseInt(result.resultConvertID);
-          status = "";
-          resolve();
-        }
-      });
-    });
-
-    //Waiting itri tts create audio
-    while (status != "completed") {
-      //Get audio .wav url
-      await new Promise (function(resolve,reject){
-        tts.GetConvertStatus(convertID, function (err, result) {
-          if (err) throw err
-          if (result.resultString == "success"){
-            url = result.resultUrl;
-            status = result.status;
-            resolve();
-          }
-        });
-      });
-    }
     ctx.body = await ctx.render('apple',{
-      date:Math.floor((new Date().getTime()-new Date("2015-10-07T06:00:00.000Z").getTime())/86400000),
-      url:url
+      date:Math.floor((new Date().getTime()-new Date("2015-10-07T06:00:00.000Z").getTime())/86400000)
     });
   }else{
     ctx.redirect('/');
