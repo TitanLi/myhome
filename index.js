@@ -37,10 +37,10 @@ router.get('/', async function (ctx, next) {
   ctx.body = await ctx.render('login');
 });
 
-router.get('/home', async function (ctx, next) {
+router.post('/home', async function (ctx, next) {
   console.log(ctx.session.views);
-  if(ctx.session.views==undefined && ctx.query.email == "sheng-love-ru@titan.com" && ctx.query.password == "iloveyou"){
-    if(ctx.query.checkbox=="remember-me"){
+  if(ctx.session.views==undefined && ctx.request.body.email == "sheng-love-ru@titan.com" && ctx.request.body.password == "iloveyou"){
+    if(ctx.request.body.checkbox=="remember-me"){
       ctx.session.views = "apple";
     }
     ctx.body = await ctx.render('apple',{

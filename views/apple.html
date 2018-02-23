@@ -17,26 +17,29 @@
     var touch = true;
     function play(){
       if(touch){
-        document.getElementById('myAudio').play();
+        document.getElementById('love').src = "./wav/60.wav";
+        document.getElementById('love').play();
+        touch = !touch;
+      }else{
+        document.getElementById('love').src = "./wav/6.wav";
+        document.getElementById('love').play();
         touch = !touch;
       }
     }
     </script>
   </head>
-  <body background="./img/1465128885084.jpg" onload="">
+  <body background="./img/1465128885084.jpg">
     <div class="collapse bg-dark" id="navbarHeader">
       <div class="container">
         <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
+          <div class="col-sm-8 col-md-7 py-2">
             <h4 class="text-white">About</h4>
-            <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+            <p class="text-muted">很久以前有一個人叫做汶昇，他是個啦啦隊社長，他積極的在各大新生社團發文招募新社員，那年他的桃花運也非常的旺，手機不斷叮咚叮咚的叫，都是新生（女生比較多）來詢問，於是他廣放魚線，看能不能釣到美人魚回家，就在某一天，宛儒回了汶昇的文章，汶昇開始展開猛烈的攻勢，讓宛儒措手不及，每天聊到半夜都不肯休息，汶昇還使用大決，為了不讓第二天開始沒話題，故意在睡前就不回訊息，隔天早上在回，就這樣一日復一日，美人魚終於上鉤了，在望高寮進行收線的作業（告白），最後抱得美人歸</p>
           </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4 class="text-white">Contact</h4>
+          <div class="col-sm-4 offset-md-1 py-2">
+            <h4 class="text-white">幕後花絮</h4>
             <ul class="list-unstyled">
-              <li><a href="#" class="text-white">Follow on Twitter</a></li>
-              <li><a href="#" class="text-white">Like on Facebook</a></li>
-              <li><a href="#" class="text-white">Email me</a></li>
+              <li><a href="https://drive.google.com/drive/folders/0B6M9S92BCZl1WjNEX19vVzJPX3M?usp=sharing" class="text-white">點點滴滴</a></li>
             </ul>
           </div>
         </div>
@@ -53,13 +56,10 @@
         </button>
       </div>
     </div>
-    <!-- <div class="day"> -->
-      <h1 class="title">手牽手</h1>
-      <h3 class="day">{{ date }}天</h3>
-    <!-- </div> -->
-    <audio id="myAudio" src="./wav/151938240413780.wav" type="audio/wav" autoplay="autoplay">
-      <!-- <source src={{url}} type="audio/wav"> -->
-      Your browser does not support the audio element.
+    <h1 class="title">手牽手</h1>
+    <h3 class="day">{{ date }}天</h3>
+    <audio id="love">
+      <source src="" type="audio/wav">
     </audio>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="./script/jquery-slim.min.js"><\/script>')</script>
