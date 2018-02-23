@@ -1,6 +1,6 @@
 const TTSClient = require('itri-tts');
 
-const tts = new TTSClient("Lisheng0706", "Q3SeD");
+const tts = new TTSClient("account", "password");
 
 var options = {
   TTStext: '您好，我是Bruce',
