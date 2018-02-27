@@ -20,8 +20,8 @@ const CONFIG = {
   overwrite: true, /** (boolean) can overwrite or not (default true) */
   httpOnly: true, /** (boolean) httpOnly or not (default true) */
   signed: true, /** (boolean) signed or not (default true) */
-  rolling: false, /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */
-  renew: false, /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
+  rolling: true, /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */
+  renew: true, /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
 };
 
 app.use(session(CONFIG, app));
@@ -37,19 +37,30 @@ router.get('/', async function (ctx, next) {
   ctx.body = await ctx.render('login');
 });
 
+router.get('/home', async function (ctx, next){
+  if(ctx.session.views=="apple"){
+    ctx.body = await ctx.render('apple',{
+      date:Math.floor((new Date().getTime()-new Date("2015-10-07T00:00:00.000Z").getTime())/86400000)
+    });
+  }else{
+    ctx.redirect('/');
+  }
+});
+
 router.post('/home', async function (ctx, next) {
   console.log(ctx.session.views);
-  if(ctx.session.views==undefined && ctx.request.body.email == "sheng-love-ru@titan.com" && ctx.request.body.password == "iloveyou"){
+  if(ctx.request.body.email == "sheng-love-ru@titan.com" && ctx.request.body.password == "iloveyou"){
     if(ctx.request.body.checkbox=="remember-me"){
+      if(ctx.session.views!="apple"){
+        CONFIG.maxAge = 86400000;
+        ctx.session.views = "apple";
+      }
+      ctx.redirect('/home');
+    }else{
+      CONFIG.maxAge = 6000;
       ctx.session.views = "apple";
+      ctx.redirect('/home');
     }
-    ctx.body = await ctx.render('apple',{
-      date:Math.floor((new Date().getTime()-new Date("2015-10-07T06:00:00.000Z").getTime())/86400000)
-    });
-  }else if (ctx.session.views=="apple") {
-    ctx.body = await ctx.render('apple',{
-      date:Math.floor((new Date().getTime()-new Date("2015-10-07T06:00:00.000Z").getTime())/86400000)
-    });
   }else{
     ctx.redirect('/');
   }
